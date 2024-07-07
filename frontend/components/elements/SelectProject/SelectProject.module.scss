@@ -1,0 +1,33 @@
+.selectProjectContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.selectProjectLabel {
+  opacity: 0.5;
+}
+
+.selectProjectInput {
+  height: var(--input-height);
+  background-color: transparent;
+  border: 1px solid rgba(30, 31, 34, 0.7490196078);
+  color: #040306;
+  padding-inline: 25px;
+  min-width: 430px;
+  width: 100%;
+  border-radius: var(--border-radius);
+
+  @media (max-width: 800px) {
+    min-width: auto;
+  }
+
+  .loaderContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}

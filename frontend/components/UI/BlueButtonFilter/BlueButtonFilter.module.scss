@@ -1,0 +1,22 @@
+.wrapper{
+  padding-top: 40px;
+    padding-bottom: 48px;
+    display: flex;
+    justify-content: center;
+}
+.buttonBlueFilter{
+  display: inline-flex;
+  gap: 9px;
+  justify-content: center;
+  align-items: center;
+  height: 42px;
+  padding-inline: 130px;
+  border-radius: 10px;
+  font-family: "Extatica";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18.2px;
+  background-color: #2495fe;
+  color: white;
+  white-space: nowrap;
+}

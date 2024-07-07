@@ -1,0 +1,33 @@
+.priceRangeSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 428px;
+  width: 100%;
+
+  &__label {
+    opacity: 0.5;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    border-radius: var(--border-radius);
+    height: var(--input-height);
+    padding-inline: 24px;
+    background-color: transparent;
+    border: 1px solid rgba(30, 31, 34, 0.7490196078);
+    row-gap: 8px;
+  }
+  &__values{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 800px) {
+    min-width: auto;
+  }
+
+}

@@ -1,0 +1,60 @@
+.header {
+  padding-top: 32px;
+
+  &__title {
+    font-family: Extatica;
+    font-weight: 500;
+    font-size: 60px;
+    line-height: 78px;
+    text-transform: uppercase;
+
+    @media (max-width: 1800px) {
+      font-size: 40px;
+      line-height: 32.5px;
+    }
+
+    @media (max-width: 800px) {
+      font-size: 25px;
+      line-height: 32.5px;
+    }
+  }
+}
+
+.projectForm {
+  font-size: 18px;
+  line-height: 23.4px;
+  padding-top: 46px;
+  display: flex;
+  gap: 21px;
+
+  @media (max-width: 1800px) {
+    justify-content: space-evenly;
+  }
+
+  @media (max-width: 1200px) {
+    & {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  @media (max-width: 800px) {
+    display: none;
+  }
+
+  &__group {
+    display: flex;
+    gap: 21px;
+    @media (max-width: 1800px) {
+      flex-direction: column;
+    }
+  }
+}
+
+.blueButtonFilter {
+  display: none;
+  @media (max-width: 800px) {
+    display: block;
+  }
+}

@@ -1,0 +1,37 @@
+.projectForm__roomNumbers {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+
+  &__Label {
+    opacity: 0.5;
+  }
+
+  &__List {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    list-style-type: none;
+  }
+  &__Button {
+    background-color: white;
+    align-items: center;
+    display: inline-flex;
+    height: 55px;
+    padding-inline: 23.5px;
+    border-radius: var(--border-radius);
+    border: 1px solid #040306;
+    @media (max-width: 800px) {
+      height: 49px;
+      padding-inline: 15px;
+
+
+     
+    }
+  }
+}
+.selected {
+  background-color:#2495FE;
+  color: white;
+}

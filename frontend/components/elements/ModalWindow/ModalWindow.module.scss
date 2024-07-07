@@ -1,0 +1,48 @@
+.modalWindow {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  padding-top: 20px;
+ 
+}
+
+.closeButtonContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.closeButton {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.modalWindowForm {
+  padding-top: 32px;
+}
+
+.priceRangeSelectorWrapper {
+  margin-top: 32px;
+}
+
+.headerTitleModal {
+  font-family: Extatica;
+  font-weight: 500;
+  font-size: 60px;
+  line-height: 78px;
+
+  @media (max-width: 1800px) {
+    font-size: 40px;
+    line-height: 32.5px;
+  }
+
+  @media (max-width: 800px) {
+    padding-top: 24px;
+    font-weight: 500;
+    font-size: 25px;
+  }
+}
+
+.projectFormRoomNumbersModal{
+  padding-top: 32px;
+}
