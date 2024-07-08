@@ -10,7 +10,12 @@ class Store {
   isLoading: boolean = false;
   isLoadingCard: boolean = false;
   // храним массивы фильтров
-  selectedFilters: { projects?: number[]; rooms?: number[]; square?: number[]; price?: number[] } = {};
+  selectedFilters: {
+    projects?: number[];
+    rooms?: number[];
+    square?: number[];
+    price?: number[];
+  } = {};
   selectedRoom: number[] = [];
   constructor() {
     makeAutoObservable(this);
@@ -46,21 +51,17 @@ class Store {
     }
   }
 
-  // метод для обновления фильтра после
-  // async updateFiltersBasedOnSelection() {
-  //   this.setLoading(true);
-  //   try {
-  //     const params = this.generateURLParams();
-  //     const url = `/filters?${params.toString()}`;
-  //     const response = await FilterService.getUpdateFilters(url);
-  //     this.setFilters(response.data);
-  //   } catch (error) {
-  //     console.error("Error updating filters:", error);
-  //   } finally {
-  //     this.setLoading(false);
-  //   }
-  // }
-
+  //метод для обновления фильтра после
+  async updateFiltersBasedOnSelection() {
+    try {
+      const params = this.generateURLParams();
+      const url = `/filters?${params.toString()}`;
+      const response = await FilterService.getUpdateFilters(url);
+      this.setFilters(response.data);
+    } catch (error) {
+      console.error("Error updating filters:", error);
+    }
+  }
 
   setFilters(filters: FiltersData) {
     this.filters = filters;
@@ -79,18 +80,22 @@ class Store {
     this.isLoadingCard = isLoadingCard;
   }
 
-  
   setSelectedRoom(rooms: number[]) {
     this.selectedRoom = rooms;
   }
-  
+
   // метод добавления в фильтр
-  applyFilter(filter: { projects?: number[]; rooms?: number[]; square?: number[]; price?: number[] }) {
+  applyFilter(filter: {
+    projects?: number[];
+    rooms?: number[];
+    square?: number[];
+    price?: number[];
+  }) {
     // добавление выбранных фильтров к имеющимся
     this.selectedFilters = { ...this.selectedFilters, ...filter };
-    // вызываем функцию обновления фильтров которые подстраиваются под выбранный фильтр 
-    // this.updateFiltersBasedOnSelection();
-    // получаем квартиры 
+    // вызываем функцию обновления фильтров которые подстраиваются под выбранный фильтр
+    this.updateFiltersBasedOnSelection();
+    // получаем квартиры
     this.fetchFlats();
   }
 
@@ -99,49 +104,49 @@ class Store {
     this.selectedFilters = {};
     this.filters = null;
     this.flats = null;
-    // чистим выбранные комнаты 
+    // чистим выбранные комнаты
     this.selectedRoom = [];
     this.fetchFilters();
-    //очищаем полученные кваритры  
+    //очищаем полученные кваритры
     this.fetchFlats();
-    // очищаем url 
+    // очищаем url
     this.updateURL();
   }
 
   // обновление ссылки в браузере
   updateURL() {
-    // генерация параметров 
+    // генерация параметров
     const params = this.generateURLParams();
-    // обновляем адресную строку браузера 
+    // обновляем адресную строку браузера
     window.history.replaceState(null, "", `?${params.toString()}`);
   }
 
   // генерация параметров
   generateURLParams(page: number = 1): URLSearchParams {
     const params = new URLSearchParams();
-  
+
     if (this.selectedFilters.projects) {
       this.selectedFilters.projects.forEach((project) => {
         params.append("f[projects][]", String(project));
       });
     }
-  
+
     if (this.selectedFilters.rooms) {
       this.selectedFilters.rooms.forEach((room) => {
         params.append("f[rooms][]", String(room));
       });
     }
-  
+
     if (this.selectedFilters.square) {
       params.append("f[square][min]", String(this.selectedFilters.square[0]));
       params.append("f[square][max]", String(this.selectedFilters.square[1]));
     }
-  
+
     if (this.selectedFilters.price) {
       params.append("f[price][min]", String(this.selectedFilters.price[0]));
       params.append("f[price][max]", String(this.selectedFilters.price[1]));
     }
-  
+
     params.append("page", String(page));
     return params;
   }

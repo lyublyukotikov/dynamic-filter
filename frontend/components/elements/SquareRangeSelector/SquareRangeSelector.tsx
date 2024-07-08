@@ -18,11 +18,17 @@ const SquareRangeSelector = observer(() => {
     max_range: 0,
   };
   const isLoading = store.isLoading;
-  const [squareRange, setSquareRange] = useState([square.min, square.max]);
+
+  const initialMin = square.min === 0 ? square.min_range : square.min;
+  const initialMax = square.max === 0 ? square.max_range : square.max;
+
+  const [squareRange, setSquareRange] = useState([initialMin, initialMax]);
 
   useEffect(() => {
-    setSquareRange([square.min, square.max]);
-  }, [square.min, square.max]);
+    const newMin = square.min === 0 ? square.min_range : square.min;
+    const newMax = square.max === 0 ? square.max_range : square.max;
+    setSquareRange([newMin, newMax]);
+  }, [square.min, square.max, square.min_range, square.max_range]);
 
   const handleSquareChange = (newRange: number[]) => {
     setSquareRange(newRange);
@@ -36,9 +42,9 @@ const SquareRangeSelector = observer(() => {
 
   useEffect(() => {
     if (Object.keys(store.selectedFilters).length === 0) {
-      setSquareRange([square.min, square.max]);
+      setSquareRange([initialMin, initialMax]);
     }
-  }, [store.selectedFilters, square.min, square.max]);
+  }, [store.selectedFilters, initialMin, initialMax]);
 
   return (
     <div className={styles.priceRangeSelector}>

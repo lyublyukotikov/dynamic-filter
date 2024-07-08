@@ -19,11 +19,17 @@ const PriceRangeSelector = observer(() => {
   };
   const isLoading = store.isLoading;
 
-  const [priceRange, setPriceRange] = useState<number[]>([price.min, price.max]);
+  // по умолчанию 
+  const initialMin = price.min === 0 ? price.min_range : price.min;
+  const initialMax = price.max === 0 ? price.max_range : price.max;
 
+  const [priceRange, setPriceRange] = useState<number[]>([initialMin, initialMax]);
+// чтобы фильтр не схлопывался если приходит значение максимальное и минимальное равное 0 тогда ставим  в priceRange  price.min_range и  price.max_range
   useEffect(() => {
-    setPriceRange([price.min, price.max]);
-  }, [price.min, price.max]);
+    const newMin = price.min === 0 ? price.min_range : price.min;
+    const newMax = price.max === 0 ? price.max_range : price.max;
+    setPriceRange([newMin, newMax]);
+  }, [price.min, price.max, price.min_range, price.max_range]);
 
   const handlePriceChange = (newRange: number[]) => {
     setPriceRange(newRange);

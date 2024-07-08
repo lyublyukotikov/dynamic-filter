@@ -6,7 +6,8 @@ import SelectProject from "../SelectProject/SelectProject";
 import RoomSelector from "../RoomSelector/RoomSelector";
 import styles from "./ModalWindow.module.scss";
 import Image from "next/image";
-import {HeaderFormProps} from "@/app/models/HeaderFormProps/HeaderFormProps"
+import { HeaderFormProps } from "@/app/models/HeaderFormProps/HeaderFormProps";
+
 const ModalWindow: React.FC<HeaderFormProps> = ({ closeModal }) => {
   const handleCloseModal = () => {
     closeModal();
@@ -41,7 +42,7 @@ const ModalWindow: React.FC<HeaderFormProps> = ({ closeModal }) => {
             <SquareRangeSelector />
           </div>
         </form>
-        <ModalButton />
+        <ModalButton closeModal={handleCloseModal} />
       </div>
     </div>
   );
