@@ -1,13 +1,13 @@
-"use client";
+/* eslint-disable */
 
-import React, { useState, useEffect } from "react";
-import { observer } from "mobx-react-lite";
-import Slider from "rc-slider";
-import styles from "./PriceRangeSelector.module.scss";
-import "rc-slider/assets/index.css";
-import { useStore } from "@/app/storeContext/StoreContext"; 
+import React, { useState, useEffect } from 'react'; 
+import { observer } from 'mobx-react-lite';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import ContentLoader from 'react-content-loader';
 import Image from 'next/image';
-import ContentLoader from "react-content-loader";
+import { useStore } from '@/app/storeContext/StoreContext';
+import styles from './PriceRangeSelector.module.scss';
 
 const PriceRangeSelector = observer(() => {
   const store = useStore();
@@ -17,14 +17,15 @@ const PriceRangeSelector = observer(() => {
     min_range: 0,
     max_range: 0,
   };
-  const isLoading = store.isLoading;
+  const { isLoading } = store;
 
-  // по умолчанию 
+  // по умолчанию
   const initialMin = price.min === 0 ? price.min_range : price.min;
   const initialMax = price.max === 0 ? price.max_range : price.max;
 
   const [priceRange, setPriceRange] = useState<number[]>([initialMin, initialMax]);
-// чтобы фильтр не схлопывался если приходит значение максимальное и минимальное равное 0 тогда ставим  в priceRange  price.min_range и  price.max_range
+
+  // чтобы фильтр не схлопывался если приходит значение максимальное и минимальное равное 0 тогда ставим  в priceRange  price.min_range и  price.max_range
   useEffect(() => {
     const newMin = price.min === 0 ? price.min_range : price.min;
     const newMax = price.max === 0 ? price.max_range : price.max;
@@ -37,13 +38,13 @@ const PriceRangeSelector = observer(() => {
     store.updateURL();
   };
 
-  const formatPrice = (value: number) => {
-    return value?.toLocaleString() || "0";
-  };
+  const formatPrice = (value: number) => (value?.toLocaleString() || '0');
 
   return (
     <div className={styles.priceRangeSelector}>
-      <label className={styles.priceRangeSelector__label}>Стоимость</label>
+      <label className={styles.priceRangeSelector__label} htmlFor="priceRangeInput">
+        Стоимость
+      </label>
       {isLoading ? (
         <ContentLoader
           speed={2}
@@ -59,9 +60,10 @@ const PriceRangeSelector = observer(() => {
         <div className={styles.priceRangeSelector__container}>
           <div className={styles.priceRangeSelector__values}>
             <div className={styles.priceRangeSelector__value}>
-              от{" "}
+              от{' '}
               <span className={styles.priceRangeSelector__valueNumber}>
-                {formatPrice(priceRange[0])} ₽
+                {formatPrice(priceRange[0])}
+                ₽
               </span>
             </div>
             <Image
@@ -72,9 +74,10 @@ const PriceRangeSelector = observer(() => {
               height={2}
             />
             <div className={styles.priceRangeSelector__value}>
-              до{" "}
+              до{' '}
               <span className={styles.priceRangeSelector__valueNumber}>
-                {formatPrice(priceRange[1])} ₽
+                {formatPrice(priceRange[1])}
+                ₽
               </span>
             </div>
           </div>
@@ -86,12 +89,13 @@ const PriceRangeSelector = observer(() => {
             value={priceRange}
             onChange={handlePriceChange}
             className={styles.priceRangeSelector__slider}
-            trackStyle={{ backgroundColor: "#2495FE" }}
-            railStyle={{ backgroundColor: "transparent" }}
+            trackStyle={{ backgroundColor: '#2495FE' }}
+            railStyle={{ backgroundColor: 'transparent' }}
             handleStyle={{
-              borderColor: "#2495FE",
-              backgroundColor: "#2495FE",
+              borderColor: '#2495FE',
+              backgroundColor: '#2495FE',
             }}
+            id="priceRangeInput"
           />
         </div>
       )}

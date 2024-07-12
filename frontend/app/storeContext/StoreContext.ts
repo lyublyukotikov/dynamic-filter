@@ -1,5 +1,5 @@
-import React from "react";
-import store from "@/app/store/Store"; // Обновите путь, если необходимо
+import React from 'react';
+import store from '@/app/store/Store'; // Обновите путь, если необходимо
 
 const StoreContext = React.createContext(store);
 

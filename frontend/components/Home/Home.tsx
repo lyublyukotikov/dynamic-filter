@@ -1,6 +1,5 @@
-import React from "react";
-import Cards from "@/components/elements/Cards/Cards";
-
+import React from 'react';
+import Cards from '@/components/elements/Cards/Cards';
 
 const Home = () => (
   <div className="section container">
@@ -8,7 +7,7 @@ const Home = () => (
       <h2 className="visually-hidden">Card with info about Object</h2>
       <Cards />
     </div>
-  
+
   </div>
 );
 

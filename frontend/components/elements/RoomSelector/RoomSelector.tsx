@@ -1,57 +1,54 @@
-"use client";
+/* eslint-disable */
 
-import React, { useEffect, useState } from "react";
-import { observer } from "mobx-react-lite";
-import styles from "./RoomSelector.module.scss";
-import { useStore } from "@/app/storeContext/StoreContext";
-import ContentLoader from "react-content-loader";
+import React, { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/app/storeContext/StoreContext';
+import ContentLoader from 'react-content-loader';
+import styles from './RoomSelector.module.scss';
 
 const RoomSelector = observer(() => {
   const store = useStore();
   // получаем фильтры комнат
   const rooms = store.filters?.data?.rooms || [];
-  const isLoading = store.isLoading;
+  const { isLoading } = store;
   // храним выбранные фильтры
-  const selectedRoom = store.selectedRoom;
+  const { selectedRoom } = store;
 
   useEffect(() => {
-    //создаем новый объект  используя строку запроса из текущего url
+    // создаем новый объект, используя строку запроса из текущего url
     const params = new URLSearchParams(window.location.search);
-    // извелкаем все значения  params  и преобразуем из строки в число
-    const roomsParam = params.getAll("f[rooms][]").map(Number);
-    // если есть передаем в метод добавления в фильтр
+    // извлекаем все значения params и преобразуем из строки в число
+    const roomsParam = params.getAll('f[rooms][]').map(Number);
+    // если есть, передаем в метод добавления в фильтр
     if (roomsParam.length > 0) {
       store.setSelectedRoom(roomsParam);
       store.applyFilter({ rooms: roomsParam });
     }
   }, [store]);
 
-
-
-
-
-  
-  
   useEffect(() => {
     if (store.filters?.data.rooms) {
       const validRooms = store.filters.data.rooms.map((room) => room.number);
-      store.setSelectedRoom(selectedRoom.filter((room) => validRooms.includes(room)));
+      store.setSelectedRoom(
+        selectedRoom.filter((room) => validRooms.includes(room))
+      );
     }
+   
   }, [store.filters?.data.rooms]);
 
-  //клик на кнопки
+  // клик на кнопки
   const handleButtonClick = (roomNumber: number) => {
     // проверяем есть ли комната в списке уже выбранных комнат
     const newSelectedRoom = selectedRoom.includes(roomNumber)
-      ? // если есть тогда  новый список формируем удаля повторяющие элементы
+      ? // если есть, то новый список формируем, удаляя повторяющиеся элементы
         selectedRoom.filter((num) => num !== roomNumber)
-      : // иначе добавляем к текущему массиву новые значения  roomNumber
+      : // иначе добавляем к текущему массиву новые значения roomNumber
         [...selectedRoom, roomNumber];
-    //обновляем стейт  selectedRoom
+    // обновляем стейт selectedRoom
     store.setSelectedRoom(newSelectedRoom);
     // метод добавления в фильтр
     store.applyFilter({ rooms: newSelectedRoom });
-    // вызываем метод обновление ссылки в браузере
+    // вызываем метод обновления ссылки в браузере
     store.updateURL();
   };
 
@@ -90,17 +87,17 @@ const RoomSelector = observer(() => {
             >
               <button
                 className={`${styles.projectForm__roomNumbers__Button} button ${
-                  //если выбранные фильтры содержат номер кнопки тогда красим иначе не красим
-                  selectedRoom.includes(room.number) ? styles.selected : ""
+                  // если выбранные фильтры содержат номер кнопки, то красим, иначе - не красим
+                  selectedRoom.includes(room.number) ? styles.selected : ''
                 }`}
                 type="button"
                 // передаем при клике номер фильтра
                 onClick={() => handleButtonClick(room.number)}
-                 // отображаем кнопку если она доступна на api 
+                // отображаем кнопку, если она доступна на API
                 disabled={room.disabled}
               >
-                {/* выводим номера  */}
-                {index === 0 ? "Ст" : `${room.number}k`}
+                {/* выводим номера */}
+                {index === 0 ? 'Ст' : `${room.number}k`}
               </button>
             </li>
           ))}

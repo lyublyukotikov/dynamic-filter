@@ -1,4 +1,5 @@
-import { Flat } from "./Flat";
+import { Flat } from './Flat';
+
 export interface FlatsData {
   data: Flat[];
   links: {

@@ -1,6 +1,5 @@
+import { Flat } from './Flat';
 
-import { Flat } from "./Flat";
-
-export interface CardProps{
+export interface CardProps {
   flat: Flat;
 }

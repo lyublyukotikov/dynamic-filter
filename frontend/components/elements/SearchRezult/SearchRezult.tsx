@@ -1,8 +1,8 @@
-import React from "react";
-import Image from "next/image";
-import styles from "../SearchRezult/SearchRezult.module.scss";
-import { observer } from "mobx-react-lite";
-import { useStore } from "@/app/storeContext/StoreContext";
+import React from 'react';
+import Image from 'next/image';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/app/storeContext/StoreContext';
+import styles from './SearchRezult.module.scss';
 
 const SearchResult = observer(() => {
   const store = useStore();
@@ -11,14 +11,19 @@ const SearchResult = observer(() => {
 
   const handleClearFilters = () => {
     store.clearFilters();
-   
   };
 
   return (
     <div className={styles.searchResult}>
-      <div className={styles.searchResult__number}>Найдено {totalFlats} квартир</div>
+      <div className={styles.searchResult__number}>
+        Найдено
+        {' '}
+        {totalFlats}
+        {' '}
+        квартир
+      </div>
       <div className={styles.searchResult__clear}>
-        <button className={styles.searchResult__button} onClick={handleClearFilters}>
+        <button className={styles.searchResult__button} onClick={handleClearFilters} type="button">
           <Image
             src="/img/arrow.svg"
             alt="clear everything"

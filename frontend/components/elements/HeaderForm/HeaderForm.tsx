@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import SelectProject from "../SelectProject/SelectProject";
-import RoomSelector from "../RoomSelector/RoomSelector";
-import PriceRangeSelector from "../PriceRangeSelector/PriceRangeSelector";
-import SquareRangeSelector from "../SquareRangeSelector/SquareRangeSelector";
-import SearchResult from "../SearchRezult/SearchRezult";
-import styles from "./HeaderForm.module.scss";
-import BlueButtonFilter from "@/components/UI/BlueButtonFilter/BlueButtonFilter";
-import { HeaderFormProps } from "@/app/models/HeaderFormProps/HeaderFormProps";
+import React, { useState, useEffect } from 'react';
+import BlueButtonFilter from '@/components/UI/BlueButtonFilter/BlueButtonFilter';
+import { HeaderFormProps } from '@/app/models/HeaderFormProps/HeaderFormProps';
+import SelectProject from '../SelectProject/SelectProject';
+import RoomSelector from '../RoomSelector/RoomSelector';
+import PriceRangeSelector from '../PriceRangeSelector/PriceRangeSelector';
+import SquareRangeSelector from '../SquareRangeSelector/SquareRangeSelector';
+import SearchResult from '../SearchRezult/SearchRezult';
+import styles from './HeaderForm.module.scss';
 
 const HeaderForm: React.FC<HeaderFormProps> = ({ openDrawer }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -17,9 +17,9 @@ const HeaderForm: React.FC<HeaderFormProps> = ({ openDrawer }) => {
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (

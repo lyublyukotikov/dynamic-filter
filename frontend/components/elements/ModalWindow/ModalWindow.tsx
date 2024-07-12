@@ -1,12 +1,12 @@
-import React from "react";
-import PriceRangeSelector from "../PriceRangeSelector/PriceRangeSelector";
-import SquareRangeSelector from "../SquareRangeSelector/SquareRangeSelector";
-import ModalButton from "@/components/UI/ModalButton/ModalButton";
-import SelectProject from "../SelectProject/SelectProject";
-import RoomSelector from "../RoomSelector/RoomSelector";
-import styles from "./ModalWindow.module.scss";
-import Image from "next/image";
-import { HeaderFormProps } from "@/app/models/HeaderFormProps/HeaderFormProps";
+import React from 'react';
+import ModalButton from '@/components/UI/ModalButton/ModalButton';
+import Image from 'next/image';
+import { HeaderFormProps } from '@/app/models/HeaderFormProps/HeaderFormProps';
+import PriceRangeSelector from '../PriceRangeSelector/PriceRangeSelector';
+import SquareRangeSelector from '../SquareRangeSelector/SquareRangeSelector';
+import SelectProject from '../SelectProject/SelectProject';
+import RoomSelector from '../RoomSelector/RoomSelector';
+import styles from './ModalWindow.module.scss';
 
 const ModalWindow: React.FC<HeaderFormProps> = ({ closeModal }) => {
   const handleCloseModal = () => {
@@ -17,7 +17,7 @@ const ModalWindow: React.FC<HeaderFormProps> = ({ closeModal }) => {
     <div className={styles.modalWindow}>
       <div className={`${styles.modalWindow__inner} container`}>
         <div className={styles.closeButtonContainer}>
-          <button className={styles.closeButton} onClick={handleCloseModal}>
+          <button type="button" className={styles.closeButton} onClick={handleCloseModal}>
             <Image
               width={30}
               height={30}

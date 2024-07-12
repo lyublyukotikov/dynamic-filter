@@ -1,17 +1,22 @@
-import React from "react";
-import styles from "./BlueButtonFilter.module.scss";
+import React from 'react';
+import Image from 'next/image';
+import styles from './BlueButtonFilter.module.scss';
 
-const BlueButtonFilter = ({ openDrawer }: { openDrawer: () => void }) => {
+interface BlueButtonFilterProps {
+  openDrawer: () => void;
+}
+
+const BlueButtonFilter: React.FC<BlueButtonFilterProps> = ({ openDrawer }) => {
   const handleClick = () => {
     openDrawer();
   };
 
   return (
     <div className={styles.wrapper}>
-      <a className={styles.buttonBlueFilter} onClick={handleClick}>
+      <button className={styles.buttonBlueFilter} onClick={handleClick} type="button">
         Фильтр
-        <img width={10} height={12} src="img/filter.svg" alt="filter icon" />
-      </a>
+        <Image width={10} height={12} src="/img/filter.svg" alt="filter icon" />
+      </button>
     </div>
   );
 };

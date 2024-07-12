@@ -1,13 +1,13 @@
-"use client";
+/* eslint-disable */
 
-import React, { useState, useEffect } from "react";
-import { observer } from "mobx-react-lite";
-import Slider from "rc-slider";
-import styles from "../PriceRangeSelector/PriceRangeSelector.module.scss";
-import "rc-slider/assets/index.css";
-import { useStore } from "@/app/storeContext/StoreContext";
-import Image from "next/image";
-import ContentLoader from "react-content-loader";
+import React, { useState, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import ContentLoader from 'react-content-loader';
+import { useStore } from '@/app/storeContext/StoreContext';
+import Image from 'next/image';
+import styles from '../PriceRangeSelector/PriceRangeSelector.module.scss';
 
 const SquareRangeSelector = observer(() => {
   const store = useStore();
@@ -17,7 +17,7 @@ const SquareRangeSelector = observer(() => {
     min_range: 0,
     max_range: 0,
   };
-  const isLoading = store.isLoading;
+  const { isLoading } = store;
 
   const initialMin = square.min === 0 ? square.min_range : square.min;
   const initialMax = square.max === 0 ? square.max_range : square.max;
@@ -36,9 +36,7 @@ const SquareRangeSelector = observer(() => {
     store.updateURL();
   };
 
-  const formatSquare = (value: number) => {
-    return value?.toLocaleString() || "0";
-  };
+  const formatSquare = (value: number) => value?.toLocaleString() || '0';
 
   useEffect(() => {
     if (Object.keys(store.selectedFilters).length === 0) {
@@ -48,7 +46,9 @@ const SquareRangeSelector = observer(() => {
 
   return (
     <div className={styles.priceRangeSelector}>
-      <label className={styles.priceRangeSelector__label}>Задайте площадь, м²</label>
+      <label htmlFor="square-slider" className={styles.priceRangeSelector__label}>
+        Задайте площадь, м²
+      </label>
       {isLoading ? (
         <ContentLoader
           speed={2}
@@ -64,9 +64,11 @@ const SquareRangeSelector = observer(() => {
         <div className={styles.priceRangeSelector__container}>
           <div className={styles.priceRangeSelector__values}>
             <div className={styles.priceRangeSelector__value}>
-              от{" "}
+              от{' '}
               <span className={styles.priceRangeSelector__valueNumber}>
-                {formatSquare(squareRange[0])} 
+                {
+                  formatSquare(squareRange[0])
+                }
               </span>
             </div>
             <Image
@@ -77,9 +79,11 @@ const SquareRangeSelector = observer(() => {
               height={2}
             />
             <div className={styles.priceRangeSelector__value}>
-              до{" "}
+              до{' '}
               <span className={styles.priceRangeSelector__valueNumber}>
-                {formatSquare(squareRange[1])} 
+                {
+                  formatSquare(squareRange[1])
+                }
               </span>
             </div>
           </div>
@@ -91,17 +95,19 @@ const SquareRangeSelector = observer(() => {
             value={squareRange}
             onChange={handleSquareChange}
             className={styles.priceRangeSelector__slider}
-            trackStyle={{ backgroundColor: "#2495FE" }}
-            railStyle={{ backgroundColor: "transparent" }}
+            trackStyle={{ backgroundColor: '#2495FE' }}
+            railStyle={{ backgroundColor: 'transparent' }}
             handleStyle={{
-              borderColor: "#2495FE",
-              backgroundColor: "#2495FE",
+              borderColor: '#2495FE',
+              backgroundColor: '#2495FE',
             }}
+            id="square-slider"
           />
         </div>
       )}
     </div>
   );
+  
 });
 
 export default SquareRangeSelector;

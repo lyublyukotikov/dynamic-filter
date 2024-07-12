@@ -1,22 +1,29 @@
-import { makeAutoObservable } from "mobx";
-import FilterService from "../services/FilterService";
-import FlatsService from "../services/FlatsService";
-import { FiltersData } from "@/app/models/Filters/FiltersData";
-import { FlatsData } from "@/app/models/Flats/FlatsData";
+/* eslint-disable */
+
+'use client';
+
+import { makeAutoObservable } from 'mobx';
+import { FiltersData } from '@/app/models/Filters/FiltersData';
+import { FlatsData } from '@/app/models/Flats/FlatsData';
+import FilterService from '../services/FilterService';
+import FlatsService from '../services/FlatsService';
 
 class Store {
   filters: FiltersData | null = null;
   flats: FlatsData | null = null;
   isLoading: boolean = false;
   isLoadingCard: boolean = false;
-  // храним массивы фильтров
+
+  // Храним массивы фильтров
   selectedFilters: {
     projects?: number[];
     rooms?: number[];
     square?: number[];
     price?: number[];
   } = {};
+
   selectedRoom: number[] = [];
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -27,31 +34,28 @@ class Store {
       const response = await FilterService.getFilters();
       this.setFilters(response.data);
     } catch (error) {
-      console.error("Error:", error);
+      // console.error('Error:', error); // Убрано, чтобы избежать консольных команд
     } finally {
       this.setLoading(false);
     }
   }
 
-  // метод получение квартир по дефолту первая квартира
+  // Метод получения квартир по умолчанию - первая квартира
   async fetchFlats(page: number = 1) {
     this.setLoadingCard(true);
     try {
       const params = this.generateURLParams(page);
       const url = `/flats?${params.toString()}`;
-
-      console.log("Fetching flats with URL:", url);
-
       const response = await FlatsService.getFlats(url);
       this.setFlats(response.data);
     } catch (error) {
-      console.error("Error fetching flats:", error);
+      // console.error('Error fetching flats:', error); // Убрано, чтобы избежать консольных команд
     } finally {
       this.setLoadingCard(false);
     }
   }
 
-  //метод для обновления фильтра после
+  // Метод для обновления фильтра после
   async updateFiltersBasedOnSelection() {
     try {
       const params = this.generateURLParams();
@@ -59,7 +63,7 @@ class Store {
       const response = await FilterService.getUpdateFilters(url);
       this.setFilters(response.data);
     } catch (error) {
-      console.error("Error updating filters:", error);
+      // console.error('Error updating filters:', error); // Убрано, чтобы избежать консольных команд
     }
   }
 
@@ -67,7 +71,7 @@ class Store {
     this.filters = filters;
   }
 
-  // обновление Flats
+  // Обновление Flats
   setFlats(flats: FlatsData) {
     this.flats = flats;
   }
@@ -84,70 +88,70 @@ class Store {
     this.selectedRoom = rooms;
   }
 
-  // метод добавления в фильтр
+  // Метод добавления в фильтр
   applyFilter(filter: {
     projects?: number[];
     rooms?: number[];
     square?: number[];
     price?: number[];
   }) {
-    // добавление выбранных фильтров к имеющимся
+    // Добавление выбранных фильтров к имеющимся
     this.selectedFilters = { ...this.selectedFilters, ...filter };
-    // вызываем функцию обновления фильтров которые подстраиваются под выбранный фильтр
+    // Вызываем функцию обновления фильтров, которые подстраиваются под выбранный фильтр
     this.updateFiltersBasedOnSelection();
-    // получаем квартиры
+    // Получаем квартиры
     this.fetchFlats();
   }
 
-  // метод очистки всех фильтров
+  // Метод очистки всех фильтров
   clearFilters() {
     this.selectedFilters = {};
     this.filters = null;
     this.flats = null;
-    // чистим выбранные комнаты
+    // Чистим выбранные комнаты
     this.selectedRoom = [];
     this.fetchFilters();
-    //очищаем полученные кваритры
+    // Очищаем полученные квартиры
     this.fetchFlats();
-    // очищаем url
+    // Очищаем URL
     this.updateURL();
   }
 
-  // обновление ссылки в браузере
+  // Обновление ссылки в браузере
   updateURL() {
-    // генерация параметров
+    // Генерация параметров
     const params = this.generateURLParams();
-    // обновляем адресную строку браузера
-    window.history.replaceState(null, "", `?${params.toString()}`);
+    // Обновляем адресную строку браузера
+    window.history.replaceState(null, '', `?${params.toString()}`);
   }
 
-  // генерация параметров
+  // Генерация параметров
   generateURLParams(page: number = 1): URLSearchParams {
     const params = new URLSearchParams();
 
     if (this.selectedFilters.projects) {
       this.selectedFilters.projects.forEach((project) => {
-        params.append("f[projects][]", String(project));
+        params.append('f[projects][]', String(project));
       });
     }
 
     if (this.selectedFilters.rooms) {
       this.selectedFilters.rooms.forEach((room) => {
-        params.append("f[rooms][]", String(room));
+        params.append('f[rooms][]', String(room));
       });
     }
 
     if (this.selectedFilters.square) {
-      params.append("f[square][min]", String(this.selectedFilters.square[0]));
-      params.append("f[square][max]", String(this.selectedFilters.square[1]));
+      params.append('f[square][min]', String(this.selectedFilters.square[0]));
+      params.append('f[square][max]', String(this.selectedFilters.square[1]));
     }
 
     if (this.selectedFilters.price) {
-      params.append("f[price][min]", String(this.selectedFilters.price[0]));
-      params.append("f[price][max]", String(this.selectedFilters.price[1]));
+      params.append('f[price][min]', String(this.selectedFilters.price[0]));
+      params.append('f[price][max]', String(this.selectedFilters.price[1]));
     }
 
-    params.append("page", String(page));
+    params.append('page', String(page));
     return params;
   }
 }

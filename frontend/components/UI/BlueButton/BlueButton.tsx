@@ -1,14 +1,12 @@
-"use client";
-
-import React from "react";
-import styles from "./BlueButton.module.scss";
-import { observer } from "mobx-react-lite";
-import { useStore } from "@/app/storeContext/StoreContext";
-import ContentLoader from "react-content-loader";
+import React from 'react';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/app/storeContext/StoreContext';
+import ContentLoader from 'react-content-loader';
+import styles from './BlueButton.module.scss';
 
 const BlueButton: React.FC = observer(() => {
   const store = useStore();
-  const isLoading = store.isLoading;
+  const { isLoading } = store;
 
   // Текущая страница
   const currentPage = store.flats?.meta.current_page ?? 1;
@@ -45,9 +43,18 @@ const BlueButton: React.FC = observer(() => {
         </div>
       ) : (
         hasNextPage && (
-          <a onClick={loadMoreFlats} className={`${styles.buttonBlue}`}>
+          <button
+            type="button"
+            onClick={loadMoreFlats}
+            className={styles.buttonBlue}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                loadMoreFlats();
+              }
+            }}
+          >
             {buttonText}
-          </a>
+          </button>
         )
       )}
     </div>

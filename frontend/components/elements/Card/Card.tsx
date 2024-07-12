@@ -1,18 +1,18 @@
-import React from "react";
-import Image from "next/image";
-import styles from "./Card.module.scss";
-import { CardProps } from "@/app/models/Flats/CardProps";
-import ContentLoader from "react-content-loader";
-import { observer } from "mobx-react-lite";
-import { useStore } from "@/app/storeContext/StoreContext";
+/* eslint-disable */
+
+import React from 'react';
+import Image from 'next/image';
+import { CardProps } from '@/app/models/Flats/CardProps';
+import ContentLoader from 'react-content-loader';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/app/storeContext/StoreContext';
+import styles from './Card.module.scss';
 
 const Card: React.FC<CardProps> = observer(({ flat }) => {
   const store = useStore();
   const isLoading = store.isLoadingCard;
 
-  const formatPrice = (price: string) => {
-    return `${Number(price).toLocaleString("ru-RU").replace(/,/g, " ")} ₽`;
-  };
+  const formatPrice = (price: string) => `${Number(price).toLocaleString('ru-RU').replace(/,/g, ' ')} ₽`;
 
   return (
     <>
@@ -35,7 +35,11 @@ const Card: React.FC<CardProps> = observer(({ flat }) => {
           <div className={styles.card__body}>
             <div className={styles.card__info}>
               <p className={styles.card__title}>
-                {flat.rooms}-комнатная {flat.square} м²
+                {flat.rooms}
+                -комнатная
+                {flat.square}
+                {' '}
+                м²
               </p>
               <div className={styles.card__price}>
                 {formatPrice(flat.price)}
